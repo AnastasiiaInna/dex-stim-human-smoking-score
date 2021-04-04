@@ -12,7 +12,7 @@ source("02_epigenetic_smoking_score_estimation_binderCode.R") # Illig paper
 
 mgp.dir.pre  <- "/binder/mgp/datasets/2020_DexStim_Array_Human/methylation/"
 src.data.pre <- "/binder/mgp/datasets/2020_DexStim_Array_Human/methylation/10_final_qc_data/"#"/binder/common/methylation/qc_methylation/DexStim_EPIC_2020/10_final_qc_data/"
-beta.mtrx.fn <- "dex_methyl_bmiq_beta_mtrx.rds" # "dex_methyl_bmiq_quantileN.rds" # "dex_methyl_bmiq_beta_mtrx.rds" # "dex_methyl_beta_combat_mtrx.rds"
+beta.mtrx.fn <- "dex_methyl_qn_beta_mtrx.rds" # "dex_methyl_bmiq_quantileN.rds" # "dex_methyl_bmiq_beta_mtrx.rds" # "dex_methyl_beta_combat_mtrx.rds"
 
 # Load normalized beta matrix and samplesheet
 
@@ -53,9 +53,10 @@ score.df      <- left_join(score.df, smoking.illig)
 
 # Merge with original samplesheet
 score.df <- left_join(score.df, sample.map.tbl, by = c("SampleName" = "Sample_Name"))
-score.df <- inner_join(score.df, sample.map.tbl) %>% select(Sample_Name, Individual,  
-                                                            smokingScoreElliott, smokingScoreIllig, smokingScoreZhang, PredictedSmokingStatus)
+score.df <- inner_join(score.df, sample.map.tbl) #%>% select(Sample_Name, Individual,  
+#                                                            smokingScoreElliott, smokingScoreIllig, smokingScoreZhang, PredictedSmokingStatus)
+score.df <- score.df[c("Sample_Name", "Individual", "smokingScoreElliott", "smokingScoreIllig", "smokingScoreZhang", "PredictedSmokingStatus")]
 
 write.csv2(score.df, 
-          paste0(mgp.dir.pre, "30_Epigenetic_Smoking_Score/", "smoking_score_DexStim_EPIC_2020_BMIQ.csv"), 
+          paste0(mgp.dir.pre, "30_Epigenetic_Smoking_Score/", "smoking_score_DexStim_EPIC_2020_QN.csv"), 
           quote = F, row.names = F)
