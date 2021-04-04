@@ -149,7 +149,7 @@ SmokingScoreIllig <- function(normalized_MSet){
     smoking.illig <- as.data.frame(scores_up + scores_down)
     rownames(smoking.illig ) <- colnames(normalized_MSet)
     smoking.illig$Sample_Name <- rownames(smoking.illig)
-    colnames(smoking.illig) <- c("smokingIllig", "SampleName")
+    colnames(smoking.illig) <- c("smokingScoreIllig", "SampleName")
 
     return(smoking.illig)
 }

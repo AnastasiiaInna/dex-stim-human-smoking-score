@@ -44,6 +44,9 @@ epismoke.score.df <- epismoker(dataset = beta.mtrx, samplesheet = samplesheet, m
 
 score.df <- epismoke.score.df[c("SampleName", "smokingScore", "methylationScore", "PredictedSmokingStatus")] 
 
+colnames(score.df) <- c("SampleName", "smokingScoreElliott", "smokingScoreZhang", "PredictedSmokingStatus")
+
+
 # Calculate smoking score based oc CpGs from Illig paper
 smoking.illig <- SmokingScoreIllig(beta.mtrx)
 score.df      <- left_join(score.df, smoking.illig)
@@ -51,7 +54,7 @@ score.df      <- left_join(score.df, smoking.illig)
 # Merge with original samplesheet
 score.df <- left_join(score.df, sample.map.tbl, by = c("SampleName" = "Sample_Name"))
 score.df <- inner_join(score.df, sample.map.tbl) %>% select(Sample_Name, Individual,  
-                                                            smokingScore, smokingIllig, methylationScore, PredictedSmokingStatus)
+                                                            smokingScoreElliott, smokingScoreIllig, smokingScoreZhang, PredictedSmokingStatus)
 
 write.csv2(score.df, 
           paste0(mgp.dir.pre, "30_Epigenetic_Smoking_Score/", "smoking_score_DexStim_EPIC_2020_BMIQ.csv"), 
