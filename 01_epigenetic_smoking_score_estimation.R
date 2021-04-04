@@ -4,13 +4,15 @@
 library(devtools)
 install_github("sailalithabollepalli/EpiSmokEr")
 
-library(EpiSmokEr)
+library(Epi0SmokEr)
+library(dplyr)
 
+source("02_epigenetic_smoking_score_estimation_binderCode.R") # Illig paper
 # Set up variables
 
 mgp.dir.pre  <- "/binder/mgp/datasets/2020_DexStim_Array_Human/methylation/"
-src.data.pre <- "/binder/common/methylation/qc_methylation/DexStim_EPIC_2020/10_final_qc_data/"
-beta.mtrx.fn <- "dex_methyl_bmiq_beta_mtrx.rds" # "dex_methyl_beta_combat_mtrx.rds"
+src.data.pre <- "/binder/mgp/datasets/2020_DexStim_Array_Human/methylation/10_final_qc_data/"#"/binder/common/methylation/qc_methylation/DexStim_EPIC_2020/10_final_qc_data/"
+beta.mtrx.fn <- "dex_methyl_bmiq_beta_mtrx.rds" # "dex_methyl_bmiq_quantileN.rds" # "dex_methyl_bmiq_beta_mtrx.rds" # "dex_methyl_beta_combat_mtrx.rds"
 
 # Load normalized beta matrix and samplesheet
 
@@ -42,11 +44,15 @@ epismoke.score.df <- epismoker(dataset = beta.mtrx, samplesheet = samplesheet, m
 
 score.df <- epismoke.score.df[c("SampleName", "smokingScore", "methylationScore", "PredictedSmokingStatus")] 
 
+# Calculate smoking score based oc CpGs from Illig paper
+smoking.illig <- SmokingScoreIllig(beta.mtrx)
+score.df      <- left_join(score.df, smoking.illig)
+
 # Merge with original samplesheet
 score.df <- left_join(score.df, sample.map.tbl, by = c("SampleName" = "Sample_Name"))
 score.df <- inner_join(score.df, sample.map.tbl) %>% select(Sample_Name, Individual,  
-                                                            smokingScore, methylationScore, PredictedSmokingStatus)
+                                                            smokingScore, smokingIllig, methylationScore, PredictedSmokingStatus)
 
 write.csv2(score.df, 
-          paste0(mgp.dir.pre, "30_Epigenetic_Smoking_Score/", "smoking_score_DexStim_EPIC_2020.csv"), 
+          paste0(mgp.dir.pre, "30_Epigenetic_Smoking_Score/", "smoking_score_DexStim_EPIC_2020_BMIQ.csv"), 
           quote = F, row.names = F)
