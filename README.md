@@ -18,4 +18,3 @@ The smoking score was calculated using 187 smoking-associated CpGs identified in
 
 1. Zeilinger, S. et al. Tobacco Smoking Leads to Extensive Genome-Wide Changes in DNA Methylation. PLoS One 8, (2013).
 2. Bollepalli, S., Korhonen, T., Kaprio, J., Anders, S. & Ollikainen, M. EpiSmokEr: A robust classifier to determine smoking status from DNA methylation data. Epigenomics 11, (2019).
-![image](https://user-images.githubusercontent.com/16456605/220412500-c49f880d-6d66-40c8-ad42-ef2c06f5a7f1.png)
