@@ -11,7 +11,7 @@ source("02_epigenetic_smoking_score_estimation_binderCode.R") # Illig paper
 # Set up variables
 
 mgp.dir.pre  <- "/binder/mgp/datasets/2020_DexStim_Array_Human/methylation/"
-src.data.pre <- "/binder/mgp/datasets/2020_DexStim_Array_Human/methylation/10_final_qc_data/"#"/binder/common/methylation/qc_methylation/DexStim_EPIC_2020/10_final_qc_data/"
+src.data.pre <- "/binder/mgp/datasets/2020_DexStim_Array_Human/methylation/10_final_qc_data/"
 beta.mtrx.fn <- "dex_methyl_qn_beta_mtrx.rds" # "dex_methyl_bmiq_quantileN.rds" # "dex_methyl_bmiq_beta_mtrx.rds" # "dex_methyl_beta_combat_mtrx.rds"
 
 # Load normalized beta matrix and samplesheet
