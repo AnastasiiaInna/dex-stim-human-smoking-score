@@ -6,7 +6,7 @@ library(reshape2)
 
 # Set up variables
 
-src.data.pre  <- "/Users/anastasiia_hry/bio/datasets/methylation/30_Epigenetic_Smoking_Score/" # "/binder/mgp/datasets/2020_DexStim_Array_Human/methylation/"
+src.data.pre  <- "/binder/mgp/datasets/2020_DexStim_Array_Human/methylation/"
 
 score.qn.fn      <- "smoking_score_DexStim_EPIC_2020_QN.csv"
 score.bmiq.fn    <- "smoking_score_DexStim_EPIC_2020_BMIQ.csv"
